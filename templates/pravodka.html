@@ -1,0 +1,26 @@
+<form method="post">
+    {% csrf_token %}
+    Debit hasap: <input name="debit_code">
+    Kredit hasap: <input name="credit_code">
+    Debit summa: <input name="debit_sum" type="number" step="0.01">
+    Kredit summa: <input name="credit_sum" type="number" step="0.01">
+    <button type="submit">Goshmak</button>
+</form>
+
+<h3>Wedomost</h3>
+<table border="1">
+    <tr>
+        <th>DT</th><th>KT</th><th>Debit</th><th>Kredit</th>
+    </tr>
+    {% for e in result.entries %}
+    <tr>
+        <td>{{ e.dt }}</td>
+        <td>{{ e.kt }}</td>
+        <td>{{ e.debit }}</td>
+        <td>{{ e.credit }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p>Debiting jemi: {{ result.total_debit }}</p>
+<p>Krediting jemi: {{ result.total_credit }}</p>

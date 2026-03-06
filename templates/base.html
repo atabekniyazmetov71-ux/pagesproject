@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}accountant.tkm{% endblock title %}</title>
+</head>
+<body>
+    <header>
+        <a href="{% url "home" %}">Baş sahypa</a>
+        <a href="{% url "about" %}">Saýtymyz hakynda</a>
+        <a href="{% url "help" %}">Kömek we maglymat bermek</a>
+        <a href="{% url "pravodka" %}">Pravodka bermek</a>
+    </header>
+    {% block content %}
+    {% endblock content %}
+    
+</body>
+</html>
+
+        
