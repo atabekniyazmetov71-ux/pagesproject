@@ -1,26 +1,47 @@
-<form method="post">
-    {% csrf_token %}
-    Debit hasap: <input name="debit_code">
-    Kredit hasap: <input name="credit_code">
-    Debit summa: <input name="debit_sum" type="number" step="0.01">
-    Kredit summa: <input name="credit_sum" type="number" step="0.01">
-    <button type="submit">Goshmak</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pravodka</title>
+</head>
+<body>
+    <h1>Pravodka Natija:</h1>
 
-<h3>Wedomost</h3>
-<table border="1">
-    <tr>
-        <th>DT</th><th>KT</th><th>Debit</th><th>Kredit</th>
-    </tr>
-    {% for e in result.entries %}
-    <tr>
-        <td>{{ e.dt }}</td>
-        <td>{{ e.kt }}</td>
-        <td>{{ e.debit }}</td>
-        <td>{{ e.credit }}</td>
-    </tr>
-    {% endfor %}
-</table>
+    {% if result.error %}
+        <p style="color:red;">Xato: {{ result.error }}</p>
+    {% endif %}
 
-<p>Debiting jemi: {{ result.total_debit }}</p>
-<p>Krediting jemi: {{ result.total_credit }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <label>Debit Code:</label>
+        <input type="text" name="debit_code" required><br>
+        <label>Credit Code:</label>
+        <input type="text" name="credit_code" required><br>
+        <label>Debit Sum:</label>
+        <input type="number" name="debit_sum" step="0.01" required><br>
+        <label>Credit Sum:</label>
+        <input type="number" name="credit_sum" step="0.01" required><br>
+        <button type="submit">Qo‘shish</button>
+    </form>
+
+    <h2>Joriy Entries:</h2>
+    <table border="1">
+        <tr>
+            <th>Debit Code</th>
+            <th>Credit Code</th>
+            <th>Debit</th>
+            <th>Credit</th>
+        </tr>
+        {% for e in result.entries %}
+        <tr>
+            <td>{{ e.dt }}</td>
+            <td>{{ e.kt }}</td>
+            <td>{{ e.debit }}</td>
+            <td>{{ e.credit }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p><strong>Total Debit:</strong> {{ result.total_debit }}</p>
+    <p><strong>Total Credit:</strong> {{ result.total_credit }}</p>
+</body>
+</html>
